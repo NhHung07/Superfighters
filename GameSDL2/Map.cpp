@@ -1,0 +1,54 @@
+#include "Map.h"
+#include <SDL_image.h>
+#include <iostream>
+
+Map::Map(SDL_Renderer* renderer) {
+    texture = IMG_LoadTexture(renderer, "map.png");
+    if (!texture) {
+        std::cout << "L?i t?i texture b?n ??: " << IMG_GetError() << std::endl;
+    }
+    loadMap();
+}
+
+Map::~Map() {
+    SDL_DestroyTexture(texture);
+}
+
+void Map::loadMap() {
+    int tempMap[MAP_HEIGHT / TILE_SIZE][MAP_WIDTH / TILE_SIZE] = {
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
+    memcpy(mapData, tempMap, sizeof(mapData));
+}
+
+void Map::render(SDL_Renderer* renderer) {
+    SDL_Rect  destRect;
+
+    for (int row = 0; row < MAP_HEIGHT / TILE_SIZE; row++) {
+        for (int col = 0; col < MAP_WIDTH / TILE_SIZE; col++) {
+            if (mapData[row][col] == 1) {
+                destRect = { col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE };
+                SDL_RenderCopy(renderer, texture, NULL , &destRect);
+            }
+        }
+    }
+}
+
+bool Map::isSolidTile(int x, int y) {
+    int col = x / TILE_SIZE;
+    int row = y / TILE_SIZE;
+    return mapData[row][col] == 1;
+}
