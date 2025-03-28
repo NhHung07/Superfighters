@@ -1,9 +1,9 @@
 #pragma once
 #include <SDL.h>
 
-const int MAP_WIDTH = 900;
-const int MAP_HEIGHT = 700;
-const int TILE_SIZE = 50;  
+const int MAP_WIDTH = 1280;
+const int MAP_HEIGHT = 720;
+const int TILE_SIZE = 40;  
 
 struct Map {
     SDL_Texture* texture;
@@ -14,4 +14,5 @@ struct Map {
     ~Map();
     void render(SDL_Renderer* renderer);
     bool isSolidTile(int x, int y);  
+    void reset();
 };

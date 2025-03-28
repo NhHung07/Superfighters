@@ -1,2 +1,10 @@
-﻿  Map.cpp
+﻿  Game.cpp
+D:\GameSDL2\GameSDL2\Game.cpp(59,34): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+D:\GameSDL2\GameSDL2\Game.cpp(59,34): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(103,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(104,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(105,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(115,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(116,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(117,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   GameSDL2.vcxproj -> D:\GameSDL2\x64\Debug\GameSDL2.exe
