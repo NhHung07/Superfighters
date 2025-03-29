@@ -7,4 +7,7 @@ D:\GameSDL2\GameSDL2\Game.cpp(105,28): warning C4244: '=': conversion from 'int'
 D:\GameSDL2\GameSDL2\Game.cpp(115,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 D:\GameSDL2\GameSDL2\Game.cpp(116,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 D:\GameSDL2\GameSDL2\Game.cpp(117,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Player.cpp
+  main.cpp
+  Generating Code...
   GameSDL2.vcxproj -> D:\GameSDL2\x64\Debug\GameSDL2.exe

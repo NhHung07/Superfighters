@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 
 const int PLAYER_SPEED = 5;
 const float GRAVITY = 0.5f;

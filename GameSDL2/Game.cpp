@@ -34,7 +34,7 @@ bool init(SDL_Window*& window, SDL_Renderer*& renderer ,TTF_Font*& font, TTF_Fon
 		return false;
 	}
 	largeFont = TTF_OpenFont("font.ttf", 72);
-	font = TTF_OpenFont("font.ttf" ,48);
+	font = TTF_OpenFont("font.ttf" ,24);
 	if (!font||!largeFont) {
 		std::cout << "Loi Font: " << TTF_GetError() << std::endl;
 		return false;
