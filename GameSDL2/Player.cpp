@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include "Bullet.h"
 
 int currentFrame = 0;
 int frameCount = 8;
@@ -20,6 +20,8 @@ Player::Player(int x, int y)
 	health = 200;
 	isJumping = isAttacking = false;
 	lastAttackTime = 0;
+	bulletTexture = nullptr;
+	facingRight = true;
 }
 
 
@@ -38,6 +40,36 @@ void Player::applyGravity()
 	}
 }
 
+void Player::Shoot() {
+	if (canAttack()) {
+		int bulletX = facingRight ? destRect.x + destRect.w : destRect.x;
+		int bulletY = destRect.y + destRect.h / 2;
+		int direction = facingRight ? 1 : -1;
+
+		Bullet newBullet(bulletX, bulletY, direction);
+		newBullet.texture = bulletTexture;
+		bullets.push_back(newBullet);  
+		lastAttackTime = SDL_GetTicks();
+	}
+}
+
+void Player::UpdateBullets(Player& target) {
+	for (auto& bullet : bullets) {
+		bullet.Update();
+		if (bullet.active && bullet.CheckCollision(target)) {
+			target.health -= 10;
+			bullet.active=false;
+		}
+	}
+	bullets.erase(std::remove_if(bullets.begin(), bullets.end(), [](Bullet& b) { return !b.active; }), bullets.end());
+}
+
+void Player::RenderBullets(SDL_Renderer* renderer) {
+	for (auto& bullet : bullets) {
+		bullet.Render(renderer);
+	}
+}
+
 void Player::Update() {
 	if (isJumping) {
 		state = JUMPING;
@@ -51,6 +83,15 @@ void Player::Update() {
 	else {
 		state = IDLE;
 	}
+
+
+	if (dx > 0) {
+		facingRight = true;  
+	}
+	else if (dx < 0) {
+		facingRight = false; 
+	}
+
 
 	Uint32 currentTime = SDL_GetTicks();
 	if (currentTime > lastFrameTime + frameSpeed) {
@@ -82,5 +123,6 @@ void Player::reset()
 	dx = dy = 0;
 	health = 200;
 	isJumping = isAttacking = false;
+	bullets.clear();
 	lastAttackTime = 0;
 }

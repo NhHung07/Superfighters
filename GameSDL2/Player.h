@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <vector>
+#include "Bullet.h"
 
 const int PLAYER_SPEED = 5;
 const float GRAVITY = 0.5f;
@@ -29,10 +31,16 @@ struct Player
 	Uint32 lastAttackTime = 0;
 	PlayerState state = IDLE;
 	int startX, startY;
+	std::vector<Bullet> bullets;
+	SDL_Texture* bulletTexture;
+	bool facingRight = true;
 
 	Player(int x, int y);
 	bool canAttack();
 	void applyGravity();
+	void RenderBullets(SDL_Renderer* renderer);
+	void Shoot();
+	void UpdateBullets(Player& target);
 	void Update();  
 	void Render(SDL_Renderer* renderer);
 	void reset();

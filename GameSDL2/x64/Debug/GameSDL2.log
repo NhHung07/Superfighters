@@ -1,13 +1,55 @@
-﻿  Game.cpp
+﻿  Gun.cpp
+D:\GameSDL2\GameSDL2\Player.h(34,14): error C2065: 'Bullet': undeclared identifier
+  (compiling source file 'Gun.cpp')
+  
+D:\GameSDL2\GameSDL2\Player.h(34,7): error C2923: 'std::vector': 'Bullet' is not a valid template type argument for parameter '_Ty'
+  (compiling source file 'Gun.cpp')
+      D:\GameSDL2\GameSDL2\Player.h(34,14):
+      see declaration of 'Bullet'
+  
+D:\GameSDL2\GameSDL2\Player.h(34,7): error C2976: 'std::vector': too few template arguments
+  (compiling source file 'Gun.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+  Bullet.cpp
+D:\GameSDL2\GameSDL2\Player.h(34,14): error C2065: 'Bullet': undeclared identifier
+  (compiling source file 'Bullet.cpp')
+  
+D:\GameSDL2\GameSDL2\Player.h(34,7): error C2923: 'std::vector': 'Bullet' is not a valid template type argument for parameter '_Ty'
+  (compiling source file 'Bullet.cpp')
+      D:\GameSDL2\GameSDL2\Player.h(34,14):
+      see declaration of 'Bullet'
+  
+D:\GameSDL2\GameSDL2\Player.h(34,7): error C2976: 'std::vector': too few template arguments
+  (compiling source file 'Bullet.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(429,7):
+      see declaration of 'std::vector'
+  
+  Game.cpp
+D:\GameSDL2\GameSDL2\Bullet.h(15,25): error C2061: syntax error: identifier 'Player'
+  (compiling source file 'Game.cpp')
+  
 D:\GameSDL2\GameSDL2\Game.cpp(59,34): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
 D:\GameSDL2\GameSDL2\Game.cpp(59,34): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 D:\GameSDL2\GameSDL2\Game.cpp(103,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 D:\GameSDL2\GameSDL2\Game.cpp(104,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 D:\GameSDL2\GameSDL2\Game.cpp(105,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\GameSDL2\GameSDL2\Game.cpp(115,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 D:\GameSDL2\GameSDL2\Game.cpp(116,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\GameSDL2\GameSDL2\Game.cpp(117,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Player.cpp
+D:\GameSDL2\GameSDL2\Game.cpp(117,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(118,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   main.cpp
+D:\GameSDL2\GameSDL2\Bullet.h(15,25): error C2061: syntax error: identifier 'Player'
+  (compiling source file 'main.cpp')
+  
+  Player.cpp
+D:\GameSDL2\GameSDL2\Bullet.h(15,25): error C2061: syntax error: identifier 'Player'
+  (compiling source file 'Player.cpp')
+  
+D:\GameSDL2\GameSDL2\Player.cpp(59,31): error C2660: 'Bullet::CheckCollision': function does not take 1 arguments
+      D:\GameSDL2\GameSDL2\Bullet.h(15,10):
+      see declaration of 'Bullet::CheckCollision'
+      D:\GameSDL2\GameSDL2\Player.cpp(59,31):
+      while trying to match the argument list '(Player)'
+  
   Generating Code...
-  GameSDL2.vcxproj -> D:\GameSDL2\x64\Debug\GameSDL2.exe

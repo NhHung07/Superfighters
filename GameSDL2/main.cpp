@@ -30,6 +30,9 @@ int main(int argc, char* argv[])
 
 	player1.texture = loadTexture("player1.png", renderer);
 	player2.texture = loadTexture("player2.png", renderer);
+	player1.bulletTexture = loadTexture("bullet.png", renderer);
+	player2.bulletTexture = loadTexture("bullet.png", renderer);
+
 	if (!player1.texture || !player2.texture)
 	{
 		std::cout << "Loi tai nhan vat" << std::endl;

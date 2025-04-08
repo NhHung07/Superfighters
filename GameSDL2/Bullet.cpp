@@ -1,26 +1,33 @@
 #include "Bullet.h"
-
+#include <SDL_image.h>
 const int BULLET_SPEED = 10;
 
-Bullet::Bullet(int x, int y, float direction, SDL_Texture* init_texture)
+Bullet::Bullet(int x, int y, int direction)
 {
-	rect = { x,y,10,5 };
-	dx = direction * BULLET_SPEED;
-	texture = init_texture;
+	rect = { x,y,30,15 };
+	speed = direction * BULLET_SPEED;
 	active = true;
+	texture = nullptr;
 }
 
 
-void Bullet::update() {
-	rect.x += static_cast<int>(dx);
-	if (rect.x < 0 || rect.x > 900) {
+void Bullet::Update() {
+	rect.x += static_cast<int>(speed);
+	if (rect.x < 0 || rect.x > 1280) {
 		active = false;
 	}
+
 }
 
+bool Bullet::CheckCollision(Player& target) {
+	return SDL_HasIntersection(&rect, &target.destRect);
+}
 
-void Bullet::render(SDL_Renderer* renderer) {
-	if (active) {
-		SDL_RenderCopy(renderer, texture, nullptr, &rect);
+void Bullet::Render(SDL_Renderer* renderer) {
+	if (active && texture) {
+		SDL_RenderCopy(renderer, texture, NULL, &rect);
 	}
 }
+
+
+
