@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 	Player player1(50, 600);
 	Player player2(1180, 600);
 
-	SDL_Texture* background = loadTexture("background.png", renderer);
+	SDL_Texture* background = loadTexture("Resource Files/Image/background.png", renderer);
 	if (!background)
 	{
 		std::cout << "Loi tai background" << std::endl;
@@ -28,10 +28,10 @@ int main(int argc, char* argv[])
 	}
 
 
-	player1.texture = loadTexture("player1.png", renderer);
-	player2.texture = loadTexture("player2.png", renderer);
-	player1.bulletTexture = loadTexture("bullet.png", renderer);
-	player2.bulletTexture = loadTexture("bullet.png", renderer);
+	player1.texture = loadTexture("Resource Files/Image/player1.png", renderer);
+	player2.texture = loadTexture("Resource Files/Image/player2.png", renderer);
+	player1.bulletTexture = loadTexture("Resource Files/Image/bullet.png", renderer);
+	player2.bulletTexture = loadTexture("Resource Files/Image/bullet.png", renderer);
 
 	if (!player1.texture || !player2.texture)
 	{

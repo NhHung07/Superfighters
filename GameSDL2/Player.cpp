@@ -1,4 +1,4 @@
-#include "Player.h"
+﻿#include "Player.h"
 #include "Bullet.h"
 
 int currentFrame = 0;
@@ -18,7 +18,7 @@ Player::Player(int x, int y)
 	dx = dy = 0;
 	texture = nullptr;
 	health = 200;
-	isJumping = isAttacking = false;
+	isJumping = isSwordAttacking = false;
 	lastAttackTime = 0;
 	bulletTexture = nullptr;
 	facingRight = true;
@@ -54,15 +54,80 @@ void Player::Shoot() {
 }
 
 void Player::UpdateBullets(Player& target) {
-	for (auto& bullet : bullets) {
-		bullet.Update();
-		if (bullet.active && bullet.CheckCollision(target)) {
+	for (size_t i = 0; i < bullets.size(); ) {
+		bullets[i].Update();  // Cập nhật vị trí đạn
+
+		// Nếu đạn ngoài màn hình thì xóa
+		if (bullets[i].isOutOfBounds()) {
+			bullets.erase(bullets.begin() + i);
+			continue;
+		}
+
+		// Kiểm tra va chạm với người chơi đối phương
+		if (SDL_HasIntersection(&bullets[i].rect, &target.destRect)) {
 			target.health -= 10;
-			bullet.active=false;
+			if (target.health < 0) target.health = 0;
+
+			bullets.erase(bullets.begin() + i); // Xóa viên đạn đã trúng
+			continue;
+		}
+		bool collided = false;
+		for (size_t j = 0; j < target.bullets.size(); ++j) {
+			if (SDL_HasIntersection(&bullets[i].rect, &target.bullets[j].rect)) {
+				// Xóa viên đạn của đối phương
+				target.bullets.erase(target.bullets.begin() + j);
+				// Xóa viên đạn của mình
+				bullets.erase(bullets.begin() + i);
+				collided = true;
+				break;
+			}
+		}
+		if (collided) continue;
+
+		++i;
+	}
+}
+
+void Player::SwordAttack() {
+	if (canAttack()) {
+		isSwordAttacking = true;
+		lastAttackTime = SDL_GetTicks();
+
+		int swordWidth = 30;
+		int swordHeight = 40;
+		int offset = 10;
+
+		// Chém bên phải nếu đang quay phải
+		if (facingRight) {
+			swordRect = {
+				destRect.x + destRect.w + offset,
+				destRect.y + (destRect.h - swordHeight) / 2,
+				swordWidth,
+				swordHeight
+			};
+		}
+		else { // Quay trái
+			swordRect = {
+				destRect.x - swordWidth - offset,
+				destRect.y + (destRect.h - swordHeight) / 2,
+				swordWidth,
+				swordHeight
+			};
 		}
 	}
-	bullets.erase(std::remove_if(bullets.begin(), bullets.end(), [](Bullet& b) { return !b.active; }), bullets.end());
 }
+
+void Player::UpdateSword(Player& target) {
+	if (isSwordAttacking) {
+		if (SDL_HasIntersection(&swordRect, &target.destRect)) {
+			target.health -= 15;
+			if (target.health < 0) target.health = 0;
+		}
+		// Sau khi chém xong, ngừng chém sau 1 frame
+		isSwordAttacking = false;
+	}
+}
+
 
 void Player::RenderBullets(SDL_Renderer* renderer) {
 	for (auto& bullet : bullets) {
@@ -122,7 +187,7 @@ void Player::reset()
 	srcRect = { 0, 0, frameWidth, frameHeight };
 	dx = dy = 0;
 	health = 200;
-	isJumping = isAttacking = false;
+	isJumping = isSwordAttacking = false;
 	bullets.clear();
 	lastAttackTime = 0;
 }

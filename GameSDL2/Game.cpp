@@ -33,8 +33,8 @@ bool init(SDL_Window*& window, SDL_Renderer*& renderer ,TTF_Font*& font, TTF_Fon
 		std::cout << "loi IMG khong the khoi tao " << IMG_GetError() << std::endl;
 		return false;
 	}
-	largeFont = TTF_OpenFont("font.ttf", 72);
-	font = TTF_OpenFont("font.ttf" ,24);
+	largeFont = TTF_OpenFont("Resource Files/Font/font.ttf", 72);
+	font = TTF_OpenFont("Resource Files/Font/font.ttf" ,24);
 	if (!font||!largeFont) {
 		std::cout << "Loi Font: " << TTF_GetError() << std::endl;
 		return false;
@@ -103,7 +103,7 @@ void handleEvent(SDL_Event& event, Player& player1, Player& player2, bool& isRun
 		case SDLK_s:player1.dy = keyDown ? PLAYER_SPEED : 0; break;
 		case SDLK_a:player1.dx = keyDown ? -PLAYER_SPEED : 0; break;
 		case SDLK_d:player1.dx = keyDown ? PLAYER_SPEED : 0; break;
-		case SDLK_j:player1.isAttacking = true; break;
+		case SDLK_j:player1.SwordAttack(); break;
 		case SDLK_k:player1.Shoot(); break;
 
 		case SDLK_UP:
@@ -116,7 +116,7 @@ void handleEvent(SDL_Event& event, Player& player1, Player& player2, bool& isRun
 		case SDLK_DOWN:player2.dy = keyDown ? PLAYER_SPEED : 0; break;
 		case SDLK_LEFT:player2.dx = keyDown ? -PLAYER_SPEED : 0; break;
 		case SDLK_RIGHT:player2.dx = keyDown ? PLAYER_SPEED : 0; break;
-		case SDLK_KP_1:player2.isAttacking = true; break;
+		case SDLK_KP_1:player2.SwordAttack(); break;
 		case SDLK_KP_2:player2.Shoot(); break;
 		}
 	}
@@ -147,6 +147,9 @@ void update(Player& player1, Player& player2, Map& gameMap)
 
 	player1.UpdateBullets(player2);
 	player2.UpdateBullets(player1);
+
+	player1.UpdateSword(player2);
+	player2.UpdateSword(player1);
 
 	
 	player1.destRect.x += (int)player1.dx;
@@ -212,21 +215,7 @@ void update(Player& player1, Player& player2, Map& gameMap)
 	player2.destRect.y = std::max(0, std::min(player2.destRect.y, SCREEN_HEIGHT - player2.destRect.h));
 
 	
-	if (checkCollision(player1, player2)) {
-		if (player1.isAttacking && player1.canAttack()) {
-			player2.health -= 10;
-			player1.isAttacking = false;
-			player1.lastAttackTime = SDL_GetTicks();
-			if (player2.health < 0) player2.health = 0;
-		}
-		if (player2.isAttacking && player2.canAttack()) {
-			player1.health -= 10;
-			player2.isAttacking = false;
-			player2.lastAttackTime = SDL_GetTicks();
-			if (player1.health < 0) player1.health = 0;
-		}
-	}
-
+	
 
 	player1.Update();
 	player2.Update();
@@ -296,5 +285,5 @@ void close(SDL_Window* window, SDL_Renderer* renderer, SDL_Texture* background, 
 	IMG_Quit();
 	SDL_Quit();
 }
-;
+
 

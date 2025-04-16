@@ -3,7 +3,7 @@
 #include <iostream>
 
 Map::Map(SDL_Renderer* renderer) {
-    texture = IMG_LoadTexture(renderer, "map.png");
+    texture = IMG_LoadTexture(renderer, "Resource Files/Image/map.png");
     if (!texture) {
         std::cout << "Loi tai texture : " << IMG_GetError() << std::endl;
     }

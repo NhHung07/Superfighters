@@ -14,5 +14,4 @@ struct Map {
     ~Map();
     void render(SDL_Renderer* renderer);
     bool isSolidTile(int x, int y);  
-    void reset();
 };

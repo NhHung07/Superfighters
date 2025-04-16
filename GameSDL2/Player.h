@@ -27,13 +27,14 @@ struct Player
 	SDL_Texture* texture;
 	int health;
 	bool isJumping;
-	bool isAttacking;
 	Uint32 lastAttackTime = 0;
 	PlayerState state = IDLE;
 	int startX, startY;
 	std::vector<Bullet> bullets;
 	SDL_Texture* bulletTexture;
 	bool facingRight = true;
+	bool isSwordAttacking;
+	SDL_Rect swordRect;
 
 	Player(int x, int y);
 	bool canAttack();
@@ -41,6 +42,8 @@ struct Player
 	void RenderBullets(SDL_Renderer* renderer);
 	void Shoot();
 	void UpdateBullets(Player& target);
+	void SwordAttack();
+	void UpdateSword(Player& target);
 	void Update();  
 	void Render(SDL_Renderer* renderer);
 	void reset();
