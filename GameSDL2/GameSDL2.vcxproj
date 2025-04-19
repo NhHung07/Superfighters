@@ -130,7 +130,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -140,19 +139,8 @@
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Gun.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="C:\Users\HUNG PC\Downloads\font.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="background.png" />
-    <Image Include="bullet.png" />
-    <Image Include="player1.png" />
-    <Image Include="player2.png" />
-    <Image Include="map.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

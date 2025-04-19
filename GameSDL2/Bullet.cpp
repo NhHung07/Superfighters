@@ -4,7 +4,7 @@ const int BULLET_SPEED = 10;
 
 Bullet::Bullet(int x, int y, int direction)
 {
-	rect = { x,y,30,15 };
+	rect = { x,y,60,60 };
 	speed = direction * BULLET_SPEED;
 	texture = nullptr;
 }

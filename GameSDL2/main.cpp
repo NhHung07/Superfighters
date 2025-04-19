@@ -28,17 +28,38 @@ int main(int argc, char* argv[])
 	}
 
 
-	player1.texture = loadTexture("Resource Files/Image/player1.png", renderer);
-	player2.texture = loadTexture("Resource Files/Image/player2.png", renderer);
-	player1.bulletTexture = loadTexture("Resource Files/Image/bullet.png", renderer);
-	player2.bulletTexture = loadTexture("Resource Files/Image/bullet.png", renderer);
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1IdleRight.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1IdleLeft.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1RunRight.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1RunLeft.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1JumpRight.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1JumpLeft.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1SwordAttackRight.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1SwordAttackLeft.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1ShotRight.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1ShotLeft.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1DeadRight.png", renderer));
+	player1.textures.push_back(loadTexture("Resource Files/Image/player1DeadLeft.png", renderer));
 
-	if (!player1.texture || !player2.texture)
-	{
-		std::cout << "Loi tai nhan vat" << std::endl;
-		close(window, renderer, background, player1, player2,font,largeFont);
-		return -1;
-	}
+
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2IdleRight.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2IdleLeft.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2RunRight.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2RunLeft.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2JumpRight.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2JumpLeft.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2SwordAttackRight.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2SwordAttackLeft.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2ShotRight.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2ShotLeft.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2DeadRight.png", renderer));
+	player2.textures.push_back(loadTexture("Resource Files/Image/player2DeadLeft.png", renderer));
+
+
+	player1.bulletTexture.push_back(loadTexture("Resource Files/Image/bullet1Right.png", renderer));
+	player1.bulletTexture.push_back(loadTexture("Resource Files/Image/bullet1Left.png", renderer));
+	player2.bulletTexture.push_back(loadTexture("Resource Files/Image/bullet2Right.png", renderer));
+	player2.bulletTexture.push_back(loadTexture("Resource Files/Image/bullet2Left.png", renderer));
 
 
 	SDL_Event event;

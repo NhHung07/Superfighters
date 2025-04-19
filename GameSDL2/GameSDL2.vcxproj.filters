@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\Font">
-      <UniqueIdentifier>{07f052d9-e490-46a1-98af-ccb61395ea4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Imagi">
-      <UniqueIdentifier>{e1c29cf5-f896-48cf-ad8e-dd015b30932e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,9 +27,6 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Gun.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -47,36 +38,11 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Gun.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="C:\Users\HUNG PC\Downloads\font.ttf">
-      <Filter>Resource Files\Font</Filter>
-    </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="background.png">
-      <Filter>Resource Files\Imagi</Filter>
-    </Image>
-    <Image Include="bullet.png">
-      <Filter>Resource Files\Imagi</Filter>
-    </Image>
-    <Image Include="player1.png">
-      <Filter>Resource Files\Imagi</Filter>
-    </Image>
-    <Image Include="player2.png">
-      <Filter>Resource Files\Imagi</Filter>
-    </Image>
-    <Image Include="map.png">
-      <Filter>Resource Files\Imagi</Filter>
-    </Image>
   </ItemGroup>
 </Project>

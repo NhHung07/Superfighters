@@ -274,8 +274,12 @@ void render(SDL_Renderer* renderer, SDL_Texture* background, Player& player1, Pl
 
 void close(SDL_Window* window, SDL_Renderer* renderer, SDL_Texture* background, Player& player1, Player& player2, TTF_Font* font, TTF_Font* largeFont)
 {
-	SDL_DestroyTexture(player1.texture);
-	SDL_DestroyTexture(player2.texture);
+	for (SDL_Texture* tex : player1.textures) {
+		SDL_DestroyTexture(tex);
+	}
+	for (SDL_Texture* tex : player2.textures) {
+		SDL_DestroyTexture(tex);
+	}
 	SDL_DestroyTexture(background);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

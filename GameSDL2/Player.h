@@ -14,26 +14,35 @@ const Uint32 ATTACK_COOLDOWN = 500;
 
 
 enum PlayerState {
-	IDLE,    
-	RUNNING, 
-	JUMPING, 
-	FALLING
+	IDLERIGHT,
+	IDLELEFT,
+	RUNRIGHT,
+	RUNLEFT,
+	JUMPRIGHT,
+	JUMPLEFT,
+	SWORDATTACKRIGHT,
+	SWORDATTACKLEFT,
+	SHOTRIGHT,
+	SHOTLEFT,
+	DEADRIGHT,
+	DEADLEFT,
 };
 
 struct Player
 {
 	SDL_Rect srcRect,destRect;
 	float dx, dy;
-	SDL_Texture* texture;
+	std::vector<SDL_Texture*> textures;
 	int health;
 	bool isJumping;
 	Uint32 lastAttackTime = 0;
-	PlayerState state = IDLE;
+	PlayerState state = IDLERIGHT;
 	int startX, startY;
 	std::vector<Bullet> bullets;
-	SDL_Texture* bulletTexture;
+	std::vector<SDL_Texture*> bulletTexture;
 	bool facingRight = true;
 	bool isSwordAttacking;
+	bool isShooting;
 	SDL_Rect swordRect;
 
 	Player(int x, int y);

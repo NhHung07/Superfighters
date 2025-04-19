@@ -2,25 +2,20 @@
 #include "Bullet.h"
 
 int currentFrame = 0;
-int frameCount = 8;
+int frameCount = 4;
 int frameSpeed = 100;
 Uint32 lastFrameTime = 0;
-const int frameWidth = 50;
-const int frameHeight = 50;
-
 
 Player::Player(int x, int y)
 {
-	destRect = { x,y,50,50 };
+	destRect = { x,y,96,96 };
 	startX = x;
 	startY = y;
-	srcRect = { 0, 0, frameWidth, frameHeight };
+	srcRect = { 0, 0, 96, 96 };
 	dx = dy = 0;
-	texture = nullptr;
 	health = 200;
-	isJumping = isSwordAttacking = false;
+	isJumping = isSwordAttacking = isShooting = false;
 	lastAttackTime = 0;
-	bulletTexture = nullptr;
 	facingRight = true;
 }
 
@@ -42,12 +37,18 @@ void Player::applyGravity()
 
 void Player::Shoot() {
 	if (canAttack()) {
+		isShooting = true;
 		int bulletX = facingRight ? destRect.x + destRect.w : destRect.x;
 		int bulletY = destRect.y + destRect.h / 2;
 		int direction = facingRight ? 1 : -1;
 
 		Bullet newBullet(bulletX, bulletY, direction);
-		newBullet.texture = bulletTexture;
+		if (facingRight) {
+			newBullet.texture = bulletTexture[0];
+		}
+		else {
+			newBullet.texture = bulletTexture[1];
+		}
 		bullets.push_back(newBullet);  
 		lastAttackTime = SDL_GetTicks();
 	}
@@ -123,8 +124,6 @@ void Player::UpdateSword(Player& target) {
 			target.health -= 15;
 			if (target.health < 0) target.health = 0;
 		}
-		// Sau khi chém xong, ngừng chém sau 1 frame
-		isSwordAttacking = false;
 	}
 }
 
@@ -136,26 +135,52 @@ void Player::RenderBullets(SDL_Renderer* renderer) {
 }
 
 void Player::Update() {
-	if (isJumping) {
-		state = JUMPING;
-	}
-	else if (dy > 0) { 
-		state = FALLING;
-	}
-	else if (dx!=0) {
-		state = RUNNING;
-	}
-	else {
-		state = IDLE;
-	}
-
-
 	if (dx > 0) {
-		facingRight = true;  
+		facingRight = true;
 	}
 	else if (dx < 0) {
-		facingRight = false; 
+		facingRight = false;
 	}
+
+	if (isJumping && facingRight) {
+		state = JUMPRIGHT;
+	}
+	else if (isJumping && !facingRight) {
+		state = JUMPLEFT;
+	}
+	else if (isSwordAttacking && facingRight) {
+		state = SWORDATTACKRIGHT;
+	}
+	else if (isSwordAttacking && !facingRight) {
+		state = SWORDATTACKLEFT;
+	}
+	else if (isShooting && facingRight) {
+		state = SHOTRIGHT;
+	}
+	else if (isShooting&& !facingRight) {
+		state = SHOTLEFT;
+	}
+	else if (health<=0 && facingRight) {
+		state = DEADRIGHT;
+	}
+	else if (health<=0 && !facingRight) {
+		state = DEADLEFT;
+	}
+	else if (dx > 0) {
+		state = RUNRIGHT;
+	}
+	else if (dx < 0) {
+		state = RUNLEFT;
+	}
+	else if (facingRight){
+		state = IDLERIGHT;
+	}
+	else {
+		state = IDLELEFT;
+	}
+
+	isShooting = false;
+	isSwordAttacking = false;
 
 
 	Uint32 currentTime = SDL_GetTicks();
@@ -168,26 +193,34 @@ void Player::Update() {
 
 
 
-void Player::Render(SDL_Renderer* renderer) {
-	int spriteRow = 0;
+void Player::Render(SDL_Renderer* renderer) { 
+	int tmp = 0;
+	if (state == IDLERIGHT) tmp = 0;
+	else if (state == IDLELEFT) tmp = 1;
+	else if (state == RUNRIGHT) tmp = 2;
+	else if (state == RUNLEFT) tmp = 3;
+	else if (state == JUMPRIGHT) tmp = 4;
+	else if (state == JUMPLEFT) tmp = 5;
+	else if (state == SWORDATTACKRIGHT) tmp = 6;
+	else if (state == SWORDATTACKLEFT) tmp = 7;
+	else if (state == SHOTRIGHT) tmp = 8;
+	else if (state == SHOTLEFT) tmp = 9;
+	else if (state == DEADRIGHT) tmp = 10;
+	else if (state == DEADLEFT) tmp = 11;
+	
+	SDL_Rect srcRect = { currentFrame*96 , 0 , 96 , 96 };
 
-	if (state == RUNNING) spriteRow = 1; 
-	if (state == JUMPING) spriteRow = 2;  
-	if (state == FALLING) spriteRow = 3;  
-
-	SDL_Rect srcRect = { currentFrame * frameWidth, spriteRow * frameHeight, frameWidth, frameHeight };
-
-	SDL_RenderCopy(renderer, texture, NULL, &destRect);
+	SDL_RenderCopy(renderer, textures[tmp], &srcRect , &destRect);
 }
 
 
 void Player::reset() 
 {
-	destRect = {startX,startY,50,50 };
-	srcRect = { 0, 0, frameWidth, frameHeight };
+	destRect = {startX,startY,96,96 };
+	srcRect = { 0, 0, 96, 96 };
 	dx = dy = 0;
 	health = 200;
-	isJumping = isSwordAttacking = false;
+	isJumping = isSwordAttacking = isShooting = false;
 	bullets.clear();
 	lastAttackTime = 0;
 }
