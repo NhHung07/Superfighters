@@ -9,8 +9,10 @@ int main(int argc, char* argv[])
 	SDL_Renderer* renderer = NULL;
 	TTF_Font* font = NULL;
 	TTF_Font* largeFont = NULL;
+	Mix_Music* backgroundMusic = nullptr;
 
-	if (!init(window, renderer,font,largeFont))
+
+	if (!init(window, renderer))
 	{
 		return -1;
 	}
@@ -23,7 +25,7 @@ int main(int argc, char* argv[])
 	if (!background)
 	{
 		std::cout << "Loi tai background" << std::endl;
-		close(window, renderer, nullptr, player1, player2,font,largeFont);
+		close(window, renderer, nullptr, player1, player2,font,largeFont,backgroundMusic);
 		return -1;
 	}
 
@@ -62,8 +64,18 @@ int main(int argc, char* argv[])
 	player2.bulletTexture.push_back(loadTexture("Resource Files/Image/bullet2Left.png", renderer));
 
 
+	largeFont = TTF_OpenFont("Resource Files/Font/font.ttf", 72);
+	font = TTF_OpenFont("Resource Files/Font/font.ttf", 24);
+
+
+	backgroundMusic = Mix_LoadMUS("Resource Files/Sound/background.mp3");
+	Player::swordSound = Mix_LoadWAV("Resource Files/Sound/sword.wav");
+	Player::gunSound = Mix_LoadWAV("Resource Files/Sound/gun.wav");
+
+
 	SDL_Event event;
 	bool isRunning = true;
+	Mix_PlayMusic(backgroundMusic, -1);
 	while (isRunning)
 	{
 		while (SDL_PollEvent(&event) != 0)
@@ -75,7 +87,7 @@ int main(int argc, char* argv[])
 		SDL_Delay(16);
 	}
 
-	close(window, renderer, background, player1, player2,font,largeFont);
+	close(window, renderer, background, player1, player2,font,largeFont,backgroundMusic);
 
 	return 0;
 }

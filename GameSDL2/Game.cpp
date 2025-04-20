@@ -4,12 +4,15 @@
 bool gameOver = false;
 int winner = 0;
 
-bool init(SDL_Window*& window, SDL_Renderer*& renderer ,TTF_Font*& font, TTF_Font*& largeFont)
+bool init(SDL_Window*& window, SDL_Renderer*& renderer)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		std::cout << "loi SDL khong the khoi tao " << SDL_GetError() << std::endl;
 		return false;
+	}
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+		SDL_Log("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 	}
 	if (TTF_Init() == -1) {
 		std::cout << "Loi TTF: " << TTF_GetError() << std::endl;
@@ -33,15 +36,8 @@ bool init(SDL_Window*& window, SDL_Renderer*& renderer ,TTF_Font*& font, TTF_Fon
 		std::cout << "loi IMG khong the khoi tao " << IMG_GetError() << std::endl;
 		return false;
 	}
-	largeFont = TTF_OpenFont("Resource Files/Font/font.ttf", 72);
-	font = TTF_OpenFont("Resource Files/Font/font.ttf" ,24);
-	if (!font||!largeFont) {
-		std::cout << "Loi Font: " << TTF_GetError() << std::endl;
-		return false;
-	}
-	return true;
 }
-
+	
 
 SDL_Texture* loadTexture(const char* path, SDL_Renderer* renderer)
 {
@@ -269,7 +265,7 @@ void render(SDL_Renderer* renderer, SDL_Texture* background, Player& player1, Pl
 }
 
 
-void close(SDL_Window* window, SDL_Renderer* renderer, SDL_Texture* background, Player& player1, Player& player2, TTF_Font* font, TTF_Font* largeFont)
+void close(SDL_Window* window, SDL_Renderer* renderer, SDL_Texture* background, Player& player1, Player& player2, TTF_Font* font, TTF_Font* largeFont, Mix_Music* backgroundMusic)
 {
 	for (SDL_Texture* tex : player1.textures) {
 		SDL_DestroyTexture(tex);
@@ -283,6 +279,10 @@ void close(SDL_Window* window, SDL_Renderer* renderer, SDL_Texture* background, 
 	TTF_CloseFont(font);
 	TTF_CloseFont(largeFont);
 	TTF_Quit();
+	Mix_FreeMusic(backgroundMusic);
+	Mix_FreeChunk(Player::swordSound);
+	Mix_FreeChunk(Player::gunSound);
+	Mix_CloseAudio();
 	IMG_Quit();
 	SDL_Quit();
 }

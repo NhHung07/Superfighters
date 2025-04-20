@@ -1,5 +1,5 @@
 ﻿  Player.cpp
-D:\GameSDL2\GameSDL2\Player.cpp(169,31): warning C4018: '>=': signed/unsigned mismatch
-D:\GameSDL2\GameSDL2\Player.cpp(212,40): warning C4018: '>=': signed/unsigned mismatch
-D:\GameSDL2\GameSDL2\Player.cpp(225,40): warning C4018: '>=': signed/unsigned mismatch
+D:\GameSDL2\GameSDL2\Player.cpp(173,31): warning C4018: '>=': signed/unsigned mismatch
+D:\GameSDL2\GameSDL2\Player.cpp(216,40): warning C4018: '>=': signed/unsigned mismatch
+D:\GameSDL2\GameSDL2\Player.cpp(229,40): warning C4018: '>=': signed/unsigned mismatch
   GameSDL2.vcxproj -> D:\GameSDL2\x64\Debug\GameSDL2.exe

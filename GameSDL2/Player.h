@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <vector>
 #include "Bullet.h"
 
@@ -29,7 +29,10 @@ enum PlayerState {
 };
 
 struct Player
-{
+{	
+	static Mix_Chunk* swordSound;
+	static Mix_Chunk* gunSound;
+
 	SDL_Rect srcRect,destRect;
 	float dx, dy;
 	std::vector<SDL_Texture*> textures;
@@ -53,6 +56,7 @@ struct Player
 	bool isDead;              // C? ki?m tra nhân v?t ?ã ch?t ch?a
 	Uint32 deathTime = 0;
 	int currentFrame ;
+
 
 	Player(int x, int y);
 	bool canAttack();

@@ -4,8 +4,10 @@
 int frameCount = 6;
 int frameSpeed = 100;
 
+Mix_Chunk* Player::swordSound = nullptr;
+Mix_Chunk* Player::gunSound = nullptr;
 
-Player::Player(int x, int y)
+Player::Player(int x, int y) 
 {
 	destRect = { x,y,96,96 };
 	startX = x;
@@ -40,6 +42,7 @@ void Player::Shoot() {
 		isShooting = true;
 		shootAnimFrame = 0;                   
 		shootAnimStartTime = SDL_GetTicks();
+		Mix_PlayChannel(-1, gunSound, 0);
 		int bulletX = facingRight ? destRect.x + destRect.w : destRect.x;
 		int bulletY = destRect.y + destRect.h / 2;
 		int direction = facingRight ? 1 : -1;
@@ -98,6 +101,7 @@ void Player::SwordAttack() {
 		swordAnimStartTime = SDL_GetTicks();
 		lastAttackTime = swordAnimStartTime;
 		hasDealtSwordDamage = false;
+		Mix_PlayChannel(-1, swordSound, 0);
 
 		int swordWidth = 30;
 		int swordHeight = 40;
