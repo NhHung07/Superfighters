@@ -258,16 +258,13 @@ void render(SDL_Renderer* renderer, SDL_Texture* background, Player& player1, Pl
 			SDL_DestroyTexture(texture);
 		}
 	}
-	else 
-	{
-		gameMap.render(renderer);
-		player1.Render(renderer);
-		player2.Render(renderer);
-		renderHealthBar(renderer, 50, 20, player1.health);
-		renderHealthBar(renderer, 730, 20, player2.health);
-		player1.RenderBullets(renderer);
-		player2.RenderBullets(renderer);
-	}
+	gameMap.render(renderer);
+	player1.Render(renderer);
+	player2.Render(renderer);
+	renderHealthBar(renderer, 50, 20, player1.health);
+	renderHealthBar(renderer, 730, 20, player2.health);
+	player1.RenderBullets(renderer);
+	player2.RenderBullets(renderer);
 	SDL_RenderPresent(renderer);
 }
 

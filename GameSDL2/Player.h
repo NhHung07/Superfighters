@@ -43,7 +43,16 @@ struct Player
 	bool facingRight = true;
 	bool isSwordAttacking;
 	bool isShooting;
+	bool hasDealtSwordDamage;
+	Uint32 lastFrameTime = 0;
+	int shootAnimFrame = 0;
+	Uint32 shootAnimStartTime = 0;
+	int swordAnimFrame = 0;
+	Uint32 swordAnimStartTime = 0;
 	SDL_Rect swordRect;
+	bool isDead;              // C? ki?m tra nhân v?t ?ã ch?t ch?a
+	Uint32 deathTime = 0;
+	int currentFrame ;
 
 	Player(int x, int y);
 	bool canAttack();
