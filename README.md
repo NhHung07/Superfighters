@@ -1,96 +1,59 @@
-# 2-Player Fighting Game - A SDL2/C++ Game
-
-**Tác giả**: Trần Nhật Hưng  
-**MSSV**: 24021507
-
----
-
-- [0. Giới thiệu](#0-giới-thiệu)
-- [1. Hình ảnh xem trước](#1-hình-ảnh-xem-trước)
-- [2. Cài đặt và chạy game](#2-cài-đặt-và-chạy-game)
-- [3. Hướng dẫn chơi](#3-hướng-dẫn-chơi)
-- [4. Nhân vật](#4-nhân-vật)
-- [5. Điều khiển](#5-điều-khiển)
-- [6. Kết luận](#6-kết-luận)
-
----
-
-## 0. Giới thiệu
-Đây là game đối kháng 2 người chơi do mình phát triển bằng **C++** và **SDL2**.  
-Game hỗ trợ nhiều tính năng như:  
-- Tấn công bằng kiếm  
-- Bắn súng  
-- Chiêu Ultimate  
-- Nhặt vũ khí rơi trên bản đồ  
-
-Dự án này là một phần trong quá trình mình học SDL2 và luyện kỹ năng lập trình game.  
-Mong nhận được sự ủng hộ từ thầy/cô và các bạn!
-
----
-
-## 1. Hình ảnh xem trước
-
+# Superfighters - Make By SDL2 C++
 <p align="center">
-  <img src="assets/player1_idle_right.png" width="80" />
-  <img src="assets/player2_idle_left.png" width="80" />
+ <strong>Author</strong>: Trần Nhật Hưng
+</p>
+<p align="center">
+ <strong> Student ID </strong>: 24021507
 </p>
 
-> Hình ảnh hai nhân vật chính trong game
+- [A. Introduction](#A-introduction)
+  * [Setup Enviroment](#1-Setup-Enviroment)
+  * [Tutorial](#2-Tutorial)
+- [B. Sources](#B-sources)
+- [C. Conclusion](#C-conclusion)
 
----
+# A. Introduction
+Đây là game được em viết trong khoảng **6 tuần** và cũng là game đầu tiên mà em viết. Game sẽ giúp mọi người **vui vẻ, thoải mái** sau những giờ học căng thẳng, hy vọng mọi người tận hưởng nó !!!
 
-## 2. Cài đặt và chạy game
+Các thư viện đi kèm: **bits**, **SDL2**, **SDL2-image**, **SDL2-ttf** và **SDL2-mixer**.
 
-- Game được build bằng **Visual Studio 2022**
-- Cần cài đặt các thư viện sau:
-  - `SDL2`
-  - `SDL2_image`
-  - `SDL2_mixer`
-- Mở file `.sln`, build và chạy `main.cpp`
-
----
-
-## 3. Hướng dẫn chơi
-
-1. Hai người chơi chiến đấu đến khi một người hết máu.
-2. Nhặt vũ khí rơi trên bản đồ để tăng sức mạnh.
-3. Vũ khí gồm:
-   - **Kiếm**: Tấn công cận chiến
-   - **Súng**: Tấn công tầm xa
-4. Dùng **Ultimate** khi đủ năng lượng (đánh trúng đối thủ 5 lần).
-
----
-
-## 4. Nhân vật
-
-| Nhân vật   | Mô tả                   |
-|------------|--------------------------|
-| Player 1   | Lão già dùng rìu phép    |
-| Player 2   | Hiệp sĩ dùng khiên & kiếm |
-
-Hình ảnh chi tiết: xem phần [Hình ảnh xem trước](#1-hình-ảnh-xem-trước)
-
----
-
-## 5. Điều khiển
+Game được lấy cảm hứng từ các game solo 2 người tuổi thơ trên y8 và game vui ở đó 2 người chơi sẽ nhập vai vào 2 nhân vật chiến đấu với nhau và tìm ra người chiến thắng.
+# 1. Setup Enviroment
+**Cách 1**
+- Chạy file **main.exe** để chơi hoặc
+- Sử dụng [mingw64](https://www.mingw-w64.org/) và các thư viện [SDL2](https://www.libsdl.org/) đi kèm để build file **main.cpp**. Chạy file vừa build được để chơi. 
+- **Khuyến cáo sử dụng Visual Studio 2022 hoặc các IDE có khả năng đọc file cmake.**
+**Cách 2**
+- Tải file [mingw64](https://www.mingw-w64.org/)
+- Tải file zip từ [tải game](https://drive.google.com/file/d/1aBG8a4bVc6_MHwceOrDTmIL0OOLl7l4i/view?usp=sharing)
+- Giải nén file và mở file .exe sau đó tận hưởng game thôi.
+# 2. Tutorial
 
 ### 🎮 Player 1:
+<p align="center">
+  <img src="Resource Files/Image/player1.png" alt="Player 1" width="500"/>
+</p>
 - Di chuyển: `W`, `A`, `S`, `D`
 - Tấn công bằng kiếm: `J`
 - Bắn súng: `K`
-- Dùng chiêu Ultimate: `U`
 
 ### 🎮 Player 2:
+<p align="center">
+  <img src="Resource Files/Image/player1.png" alt="Player 2" width="500"/>
+</p>
 - Di chuyển: `↑`, `←`, `↓`, `→`
 - Tấn công bằng kiếm: `1`
 - Bắn súng: `2`
-- Dùng chiêu Ultimate: `3`
 
 ---
 
-## 6. Kết luận
-
-Đây là dự án tâm huyết của mình để thực hành SDL2 và phát triển kỹ năng lập trình game.  
-Hi vọng trò chơi sẽ mang lại trải nghiệm thú vị cho người chơi!  
-
-Nếu được điểm tối đa thì xin cảm ơn thầy/cô rất nhiều ạ ❤️
+# B. Sources
+Game được em tự viết hoàn toàn với một số tham khảo từ:
+- Cách làm việc với SDL từ **LazyFoo**, **codergopher**.
+- Một số thuật toán xử lý va chạm từ Internet.
+- Nguồn ảnh nhân vật lấy từ [CRAFTPIX.NET](https://craftpix.net/categorys/sprites/), ChatGPT, và tự chỉnh sủa bằng [Piskel](https://www.piskelapp.com/p/create/sprite).
+- Âm thanh lấy từ [OpenGameArt](https://opengameart.org/), **Youtube**.
+- Font chữ được lấy từ [Google form](https://fonts.google.com/).
+# C. Conclusion
+Qua quá trình làm game em được học được cách làm quen với 1 ngôn ngữ, thư viện và rèn luyện cải thiện cách thức tổ chức chương trình. Đặc biệt là việc sử dụng AI vào sinh ảnh giúp em giảm được đáng kể thời gian làm game.
+Sau cùng em tự đánh giá game em làm là 1 game hay và có ý nghĩa trong việc giải trí, kết nối với bạn bè, truyền cảm hứng cho người muốn làm game đồng thời là game đáp ứng được tất cả các tiêu chí trong checklist nên em tự đánh giá game em xứng đáng được **10 điểm**, nhưng nếu điểm số thấp hơn thì em cũng chấp nhận.
