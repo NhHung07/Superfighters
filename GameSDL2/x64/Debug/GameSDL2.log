@@ -1,5 +1,18 @@
-﻿  Player.cpp
-D:\GameSDL2\GameSDL2\Player.cpp(173,31): warning C4018: '>=': signed/unsigned mismatch
-D:\GameSDL2\GameSDL2\Player.cpp(216,40): warning C4018: '>=': signed/unsigned mismatch
-D:\GameSDL2\GameSDL2\Player.cpp(229,40): warning C4018: '>=': signed/unsigned mismatch
+﻿  Game.cpp
+D:\GameSDL2\GameSDL2\Game.cpp(57,34): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+D:\GameSDL2\GameSDL2\Game.cpp(57,34): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(105,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(106,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(107,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(119,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(120,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameSDL2\GameSDL2\Game.cpp(121,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Player.cpp
+D:\GameSDL2\GameSDL2\Player.cpp(179,27): warning C4018: '>=': signed/unsigned mismatch
+D:\GameSDL2\GameSDL2\Player.cpp(214,31): warning C4018: '>=': signed/unsigned mismatch
+D:\GameSDL2\GameSDL2\Player.cpp(259,40): warning C4018: '>=': signed/unsigned mismatch
+D:\GameSDL2\GameSDL2\Player.cpp(272,40): warning C4018: '>=': signed/unsigned mismatch
+  main.cpp
+  Generating Code...
+D:\GameSDL2\GameSDL2\Game.cpp(41,1): warning C4715: 'init': not all control paths return a value
   GameSDL2.vcxproj -> D:\GameSDL2\x64\Debug\GameSDL2.exe

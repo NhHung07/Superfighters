@@ -1,21 +1,22 @@
 ﻿#include "Player.h"
 #include "Bullet.h"
 
-int frameCount = 6;
-int frameSpeed = 100;
+int frameCount = 6; // Số lượng frame của animation
+int frameSpeed = 100; // Thời gian giữa các frame animation
 
-Mix_Chunk* Player::swordSound = nullptr;
-Mix_Chunk* Player::gunSound = nullptr;
+Mix_Chunk* Player::swordSound = nullptr; // Âm thanh chém kiếm
+Mix_Chunk* Player::gunSound = nullptr; // Âm thanh bắn súng
 
 Player::Player(int x, int y) 
 {
-	destRect = { x,y,96,96 };
+	destRect = { x,y,96,96 }; // Vị trí và kích thước nhân vật
 	startX = x;
 	startY = y;
-	srcRect = { 0, 32, 96, 96 };
+	srcRect = { 0, 32, 96, 96 }; // Frame đầu tiên hiển thị
 	dx = dy = 0;
 	health = 200;
-	isJumping = isSwordAttacking = isShooting = isDead = false;
+	currentFrame = 0;
+	isJumping = isSwordAttacking = isShooting = isDead = hasDealtSwordDamage = false;
 	lastAttackTime = 0;
 	facingRight = true;
 	int currentFrame = 0;
@@ -37,14 +38,29 @@ void Player::applyGravity()
 	}
 }
 
+
+void Player::TakeDamage(int dmg) {
+	if (isDead || isHurting) return;
+
+	health -= dmg;
+	if (health < 0) health = 0;
+
+	isHurting = true;
+	hurtFrame = 0;
+	hurtStartTime = SDL_GetTicks();
+}
+
+
 void Player::Shoot() {
 	if (canAttack()) {
 		isShooting = true;
 		shootAnimFrame = 0;                   
 		shootAnimStartTime = SDL_GetTicks();
 		Mix_PlayChannel(-1, gunSound, 0);
+
+		// Tạo đạn theo hướng nhân vật
 		int bulletX = facingRight ? destRect.x + destRect.w : destRect.x;
-		int bulletY = destRect.y + destRect.h / 2;
+		int bulletY = destRect.y + destRect.h / 2 - 20;
 		int direction = facingRight ? 1 : -1;
 
 		Bullet newBullet(bulletX, bulletY, direction);
@@ -59,24 +75,28 @@ void Player::Shoot() {
 	}
 }
 
-void Player::UpdateBullets(Player& target) {
+void Player::UpdateBullets(Player& target, Map& gameMap) {
 	for (size_t i = 0; i < bullets.size(); ) {
 		bullets[i].Update();  // Cập nhật vị trí đạn
 
-		// Nếu đạn ngoài màn hình thì xóa
+		// Nếu đạn ngoài màn hình 
 		if (bullets[i].isOutOfBounds()) {
 			bullets.erase(bullets.begin() + i);
 			continue;
 		}
-
-		// Kiểm tra va chạm với người chơi đối phương
-		if (SDL_HasIntersection(&bullets[i].rect, &target.destRect)) {
-			target.health -= 10;
-			if (target.health < 0) target.health = 0;
-
-			bullets.erase(bullets.begin() + i); // Xóa viên đạn đã trúng
+		// Nếu đạn va chạm với tile map
+		if (gameMap.isCollidingWithTile(bullets[i].rect)) {
+			bullets.erase(bullets.begin() + i);
 			continue;
 		}
+		// Kiểm tra va chạm với người chơi đối phương
+		if (SDL_HasIntersection(&bullets[i].rect, &target.destRect)) {
+			target.TakeDamage(10);
+
+			bullets.erase(bullets.begin() + i); 
+			continue;
+		}
+		// Kiểm tra va chạm với đạn đối phương 
 		bool collided = false;
 		for (size_t j = 0; j < target.bullets.size(); ++j) {
 			if (SDL_HasIntersection(&bullets[i].rect, &target.bullets[j].rect)) {
@@ -130,8 +150,7 @@ void Player::SwordAttack() {
 void Player::UpdateSword(Player& target) {
 	if (isSwordAttacking && !hasDealtSwordDamage) {
 		if (SDL_HasIntersection(&swordRect, &target.destRect)) {
-			target.health -= 15;
-			if (target.health < 0) target.health = 0;
+			target.TakeDamage(15);
 			hasDealtSwordDamage = true;
 		}
 	}
@@ -145,6 +164,7 @@ void Player::RenderBullets(SDL_Renderer* renderer) {
 }
 
 void Player::Update() {
+	// Xác định hướng nhân vật
 	if (dx > 0) {
 		facingRight = true;
 	}
@@ -152,13 +172,34 @@ void Player::Update() {
 		facingRight = false;
 	}
 
+	
+	// Nếu nhân vật bị thương
+	if (isHurting) {
+		Uint32 now = SDL_GetTicks();
+		if (now - hurtStartTime >= hurtDuration) {
+			isHurting = false;
+		}
+		else {
+			if (facingRight) {
+				state = HURTRIGHT;
+			}
+			else {
+				state = HURTLEFT;
+			}
+			currentFrame = (now - hurtStartTime) / (hurtDuration / frameCount);
+			if (currentFrame >= frameCount) currentFrame = frameCount - 1;
+			// Không thực hiện các update khác khi đang bị thương
+			return;
+		}
+	}
 
+	// Xử lí nếu nhân vật chết 
 	if (!isDead && health <= 0) {
 		isDead = true;
 		deathTime = SDL_GetTicks();
 	}
 
-
+	// Xử lí các trạng thái nhân vật
 	if (isDead) {
 		dx = dy = 0;
 		isJumping = isSwordAttacking = isShooting = false;
@@ -168,7 +209,7 @@ void Player::Update() {
 		else
 			state = DEADLEFT;
 
-		// Chỉ cập nhật animation chết 1 lần, nếu chưa chạy xong 4 frame
+		// Chỉ cập nhật animation chết 1 lần
 		Uint32 currentTime = SDL_GetTicks();
 		if (currentTime - deathTime >= frameSpeed) {
 			deathTime = currentTime;
@@ -176,7 +217,7 @@ void Player::Update() {
 				currentFrame++;
 			}
 		}
-
+		// Không thực hiện update khác nếu nhân vật đã chết
 		return;
 	}
 	else if (isJumping && facingRight) {
@@ -212,12 +253,14 @@ void Player::Update() {
 
 	Uint32 currentTime = SDL_GetTicks();
 
+
+	// Cập nhật animation theo trạng thái
 	if (isShooting) {
 		if (currentTime - shootAnimStartTime >= frameSpeed) {
 			shootAnimStartTime = currentTime;
 			shootAnimFrame++;                      // Qua frame kế tiếp
 
-			if (shootAnimFrame >= frameCount) {    // Hết 4 frame rồi
+			if (shootAnimFrame >= frameCount) {    // Hết 6 frame rồi
 				isShooting = false;                // Thoát trạng thái bắn
 				shootAnimFrame = 0;
 			}
@@ -230,7 +273,7 @@ void Player::Update() {
 			swordAnimStartTime = currentTime;
 			swordAnimFrame++;   
 			// Qua frame kế tiếp
-			if (swordAnimFrame >= frameCount) {    // Hết 4 frame rồi
+			if (swordAnimFrame >= frameCount) {    // Hết 6 frame rồi
 				isSwordAttacking = false;           // Thoát trạng thái chém
 				swordAnimFrame = 0;
 			}
@@ -262,6 +305,8 @@ void Player::Render(SDL_Renderer* renderer) {
 	else if (state == SHOTLEFT) tmp = 9;
 	else if (state == DEADRIGHT) tmp = 10;
 	else if (state == DEADLEFT) tmp = 11;
+	else if (state == HURTRIGHT) tmp = 12;
+	else if (state == HURTLEFT) tmp = 13;
 	
 	SDL_Rect srcRect = { currentFrame*96 , 32 , 96 , 96 };
 
@@ -278,5 +323,6 @@ void Player::reset()
 	isJumping = isSwordAttacking = isShooting = isDead = false;
 	bullets.clear();
 	lastAttackTime = 0;
-	int currentFrame = 0;
+	currentFrame = 0;
+
 }
