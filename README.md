@@ -14,6 +14,8 @@
 
 # A. Introduction
 Đây là game được em viết trong khoảng **6 tuần** và cũng là game đầu tiên mà em viết. Game sẽ giúp mọi người **vui vẻ, thoải mái** sau những giờ học căng thẳng, hy vọng mọi người tận hưởng nó !!!
+  
+Đây là link [Video giải thích cấu trúc game](https://drive.google.com/file/d/1s2xnXmkN0TiMF7dAQYC3l3_sAbjfLzzj/view?usp=drive_link)  
 
 Các thư viện đi kèm: **bits**, **SDL2**, **SDL2-image**, **SDL2-ttf** và **SDL2-mixer**.
 
