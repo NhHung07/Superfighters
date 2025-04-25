@@ -22,25 +22,35 @@ Game được lấy cảm hứng từ các game solo 2 người tuổi thơ trê
 **Cách 1**
 - Chạy file **main.exe** để chơi hoặc
 - Sử dụng [mingw64](https://www.mingw-w64.org/) và các thư viện [SDL2](https://www.libsdl.org/) đi kèm để build file **main.cpp**. Chạy file vừa build được để chơi. 
-- **Khuyến cáo sử dụng Visual Studio 2022 hoặc các IDE có khả năng đọc file cmake.**
+- **Khuyến cáo sử dụng Visual Studio 2022 hoặc các IDE có khả năng đọc file cmake.**  
+  
+    
 **Cách 2**
 - Tải file [mingw64](https://www.mingw-w64.org/)
 - Tải file zip từ [tải game](https://drive.google.com/file/d/1aBG8a4bVc6_MHwceOrDTmIL0OOLl7l4i/view?usp=sharing)
 - Giải nén file và mở file .exe sau đó tận hưởng game thôi.
 # 2. Tutorial
 
-### 🎮 Player 1:
 <p align="center">
-  <img src="Resource Files/Image/player1.png" alt="Player 1" width="500"/>
+  <img src="GameSDL2/Resource Files/Image/player1.png" alt="Player 1" width="120"/><br>
 </p>
+
+<p align="center">
+  <b>🎮 Player 1:</b>
+</p>
+
 - Di chuyển: `W`, `A`, `S`, `D`
 - Tấn công bằng kiếm: `J`
 - Bắn súng: `K`
 
-### 🎮 Player 2:
 <p align="center">
-  <img src="Resource Files/Image/player1.png" alt="Player 2" width="500"/>
+  <img src="GameSDL2/Resource Files/Image/player2.png" alt="Player 2" width="120"/><br>
 </p>
+
+<p align="center">
+  <b>🎮 Player 2:</b>
+</p>
+
 - Di chuyển: `↑`, `←`, `↓`, `→`
 - Tấn công bằng kiếm: `1`
 - Bắn súng: `2`
