@@ -32,6 +32,8 @@ Game được lấy cảm hứng từ các game solo 2 người tuổi thơ trê
 - Tải file zip từ [tải game](https://drive.google.com/file/d/1aBG8a4bVc6_MHwceOrDTmIL0OOLl7l4i/view?usp=sharing)
 - Giải nén file và mở file .exe sau đó tận hưởng game thôi.
 # 2. Tutorial
+  
+- Mỗi người chơi có 100 máu, tấn công bằng kiếm -15 máu, trúng đạn -10 máu.
 
 <p align="center">
   <img src="GameSDL2/Resource Files/Image/player1.png" alt="Player 1" width="120"/><br>
